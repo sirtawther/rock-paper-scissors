@@ -1,1 +1,1 @@
-# rock-paper-scissors (the odin project)
+# rock-paper-scissors with ui (the odin project)
