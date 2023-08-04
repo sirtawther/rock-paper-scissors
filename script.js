@@ -3,33 +3,59 @@ let choices = ["rock", "paper", "scissor"]
 let playerScore = 0;
 let computerScore = 0;
 let roundPlayed = 0;
+let currentWinner = ""
+let input = document.querySelector("input")
+
+
+let select = document.querySelector("select")
+const playerSelection = select.value
+
+input.addEventListener("click",() => {
+    const playerSelection = select.value
+    const computerSelection = choices[Math.floor(Math.random() * choices.length)]
+    document.getElementById("result").innerHTML = "";
+    
+
+    playRound(playerSelection,computerSelection)
+    
+})
 
 
 function playRound(playerSelection, computerSelection) {
     if ((playerSelection == "rock" && computerSelection == "scissor") |
         (playerSelection == "paper" && computerSelection == "rock") |
         (playerSelection == "scissor" && computerSelection == "paper")) {
+        currentWinner = "Player"    
         playerScore += 1;
         roundPlayed += 1;
-        alert(`You win! ${playerSelection} beats ${computerSelection}.`)
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed + " - Winner is " + currentWinner + " ! " + playerSelection + " beats " + computerSelection + "."
+        
     }
     else if (playerSelection == computerSelection) {
         playerScore += 1;
         computerScore += 1;
         roundPlayed += 1;
-        alert(`${playerSelection} and ${computerSelection} is a tie!`)
+        currentWinner = "Player and Computer" 
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed+" - "+ currentWinner + " got a tie!"
+        
 
     }
     else {
         computerScore += 1;
         roundPlayed += 1;
-        alert(`You lose! ${computerSelection} beats ${playerSelection}.`)
+        currentWinner = "Computer" 
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed +" - Winner is " + currentWinner + " ! " + computerSelection + " beats " + playerSelection + "."
     }
-
 
     if (roundPlayed == 5) {
+        
+     
+
         endGame();
+        
+        
     }
+    
 
 
 }
@@ -37,28 +63,26 @@ function playRound(playerSelection, computerSelection) {
 
 
 function endGame() {
+    roundPlayed = 0;
+    
+    
+    
+
 
     if (playerScore > computerScore) {
-        alert(`Player wins!\nPlayer score: ${playerScore}\nComputer score: ${computerScore}`)
+        document.getElementById("result").innerHTML = "Player Wins!" +"<br>" + "Player Score: " + playerScore + "<br>" + "Computer Score: " + computerScore 
     } else if (playerScore < computerScore) {
-        alert(`Computer wins!\nPlayer score: ${playerScore}\nComputer score: ${computerScore}`)
+        document.getElementById("result").innerHTML = "Computer Wins!" + "<br>" +  "Computer Score: " + computerScore  + "<br>"+ "Player Score: " + playerScore 
     } else {
-        alert(`Player score: ${playerScore}\nComputer score: ${computerScore}\nTie`)
+        document.getElementById("result").innerHTML = "It's a Tie !" +  "<br>" + "Player Score: " + playerScore + "<br>" + "Computer Score: " + computerScore
     }
+    playerScore = 0;
+    computerScore = 0;
+    
+
 }
 
 
 
-for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt("Player choice \(rock,paper,scissor\):");
 
-    const computerSelection = choices[Math.floor(Math.random() * choices.length)]
-    if (choices.includes(playerSelection)) {
-
-        playRound(playerSelection, computerSelection)
-    } else {
-        alert("Please make valid choice")
-        i--;
-    }
-}
 
