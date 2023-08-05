@@ -5,7 +5,6 @@ let computerScore = 0;
 let roundPlayed = 0;
 let currentWinner = ""
 let input = document.querySelector("input")
-let eachRoundMessage = []
 
 
 let select = document.querySelector("select")
@@ -16,33 +15,8 @@ input.addEventListener("click",() => {
     const computerSelection = choices[Math.floor(Math.random() * choices.length)]
     document.getElementById("result").innerHTML = "";
     
-    
-    
-    
-    
-    document.getElementById("round").innerHTML = ""
-    eachRoundMessage.push(playRound(playerSelection,computerSelection))
 
-    
-   
-    
-
-    if (roundPlayed == 5) {
-
-        let allRoundResults = "<ol>"
-        for(let i=0; i < eachRoundMessage.length; i++) {
-            allRoundResults += "<li>" +  eachRoundMessage[i] + "</li>"
-            
-        }
-        document.getElementById("round").innerHTML = allRoundResults
-        allRoundResults += "/<ol>"
-
-        
-        
-        
-        endGame();
-        
-    }
+    playRound(playerSelection,computerSelection)
     
 })
 
@@ -51,28 +25,36 @@ function playRound(playerSelection, computerSelection) {
     if ((playerSelection == "rock" && computerSelection == "scissor") |
         (playerSelection == "paper" && computerSelection == "rock") |
         (playerSelection == "scissor" && computerSelection == "paper")) {
-           
+        currentWinner = "Player"    
         playerScore += 1;
         roundPlayed += 1;
-        return `Player Win! ${playerSelection} beats ${computerSelection}!`
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed + " - Winner is " + currentWinner + " ! " + playerSelection + " beats " + computerSelection + "."
+        
     }
     else if (playerSelection == computerSelection) {
         playerScore += 1;
         computerScore += 1;
         roundPlayed += 1;
-        
-        return `Player and Computer got a tie!`
+        currentWinner = "Player and Computer" 
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed+" - "+ currentWinner + " got a tie!"
         
 
     }
     else {
         computerScore += 1;
         roundPlayed += 1;
-        
-        return `Computer Win! ${playerSelection} beats ${computerSelection}!`
+        currentWinner = "Computer" 
+        document.getElementById("round").innerHTML = "Round: " +roundPlayed +" - Winner is " + currentWinner + " ! " + computerSelection + " beats " + playerSelection + "."
     }
 
-   
+    if (roundPlayed == 5) {
+        
+     
+
+        endGame();
+        
+        
+    }
     
 
 
@@ -81,7 +63,6 @@ function playRound(playerSelection, computerSelection) {
 
 
 function endGame() {
-    eachRoundMessage = []
     roundPlayed = 0;
     
     
@@ -97,7 +78,6 @@ function endGame() {
     }
     playerScore = 0;
     computerScore = 0;
-    
     
 
 }
