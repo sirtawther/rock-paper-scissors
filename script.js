@@ -21,7 +21,9 @@ input.addEventListener("click",() => {
     
     
     document.getElementById("round").innerHTML = ""
-    eachRoundMessage.push(playRound(playerSelection,computerSelection))
+    message = playRound(playerSelection,computerSelection)
+    document.getElementById("eachRound").innerHTML = message
+    eachRoundMessage.push(message)
 
     
    
@@ -81,6 +83,7 @@ function playRound(playerSelection, computerSelection) {
 
 
 function endGame() {
+    document.getElementById("eachRound").innerHTML = ""
     eachRoundMessage = []
     roundPlayed = 0;
     
